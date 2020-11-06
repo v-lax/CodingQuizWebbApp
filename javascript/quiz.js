@@ -19,7 +19,7 @@ var questionData = [
     {
         question:'Question4',
         choices:['1','2','3','4'],
-        correctAnswerId:4
+        correctAnswerId:0
     }
 ];
 
@@ -29,8 +29,13 @@ var welcomeSection = document.getElementById('welcome')
 var startButton = document.getElementById('start-quiz')
 var question = document.getElementById('question')
 var choices = document.getElementById('choices')
+var timer = document.getElementById('timer')
+var secondsLeft =document.getElementById('secondsLeft')
 
 var qIndex = 0
+var totalTime = 10*questionData.length
+var finalScore = 0;
+var intervalOne;
 
 
 //setting the attributes of elements on welcome screen
@@ -38,6 +43,32 @@ quizSection.setAttribute('style','display:none')
 
 
 //Function declarations
+function finalScoreCalculator(){
+    finalScore+=(100/questionData.length)
+}
+
+function startTimer(){
+    intervalOne = setInterval(function(){
+        secondsLeft.textContent=totalTime;
+        totalTime--;
+    
+        if(totalTime<0){
+          clearInterval(intervalOne)
+          console.log('Quiz is over')
+          //display score and input
+        }
+      },1000)
+};
+
+function clearTimer(){
+    clearInterval(intervalOne);
+    //secondsLeft.textContent=0;
+}
+
+function timePenalty(){
+
+}
+
 function displayQuestion(){
     quizSection.setAttribute('style','display:block')
     welcomeSection.setAttribute('style','display:none')
@@ -55,29 +86,33 @@ function choiceSubmission(event){
       var currentQuestion = questionData[qIndex];
       var correctResponse = questionData[qIndex].correctAnswerId;
       
-      if(parseInt(event.target.id)===correctResponse){
-          console.log('you got the right answer')
-          //increment their score
-          //flash "Correct" message below the question
-      }else{
+      if(parseInt(event.target.id)!==correctResponse){
           console.log('you got the wrong answer')
-          //deduct time from remaining time left on clock
-          //flash "Incorrect" message below the questions
+          clearTimer();
+          totalTime=totalTime-10;
+          startTimer();
+      }else{
+        finalScoreCalculator();
       }
     }
 
     qIndex++;
-    if(qIndex<questionData.length){
+    if((qIndex<questionData.length)&&(totalTime>0)){
         displayQuestion();
     }else{
+        clearTimer();
+        secondsLeft.textContent=0
         console.log('Quiz over')
+        console.log(finalScore)
         //displayscore
     }
 }
 
 //Eventhandling
-startButton.addEventListener('click',displayQuestion)
-
+startButton.addEventListener('click',function(){
+    startTimer();
+    displayQuestion();
+})
 choices.addEventListener('click',choiceSubmission)
 
 
