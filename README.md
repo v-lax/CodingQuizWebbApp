@@ -16,6 +16,6 @@ The following is a simple quiz web app. It contains a set of questions that the 
 # Link to Deployed project and screenshot.
 ![Screenshot](./assets/screenshot.png)
 
-[Link to deployed site](https://v-lax.github.io/CodingQuizWebbApp/)
+[Link to deployed site](https://v-lax.github.io/CodingQuizWebbApp/html/quiz.html)
 
 
