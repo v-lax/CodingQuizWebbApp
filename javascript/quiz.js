@@ -31,15 +31,21 @@ var question = document.getElementById('question')
 var choices = document.getElementById('choices')
 var timer = document.getElementById('timer')
 var secondsLeft =document.getElementById('secondsLeft')
+var afterQuiz = document.getElementById('afterQuiz')
+var finalScoreDisplay = document.getElementById('finalScoreDisplay')
+var userForm = document.getElementById('User-form')
+var userText = document.getElementById('user-text')
 
 var qIndex = 0
 var totalTime = 10*questionData.length
 var finalScore = 0;
 var intervalOne;
+var scoreArray = [];
 
 
 //setting the attributes of elements on welcome screen
 quizSection.setAttribute('style','display:none')
+afterQuiz.setAttribute('style','display:none')
 
 
 //Function declarations
@@ -55,18 +61,25 @@ function startTimer(){
         if(totalTime<0){
           clearInterval(intervalOne)
           console.log('Quiz is over')
-          //display score and input
+          endofQuiz();
         }
       },1000)
 };
 
 function clearTimer(){
     clearInterval(intervalOne);
-    //secondsLeft.textContent=0;
 }
 
 function timePenalty(){
+    totalTime=totalTime-10;
+    clearTimer();
+    startTimer();
+}
 
+function endofQuiz(){
+    quizSection.setAttribute('style','display:none')
+    afterQuiz.setAttribute('style','display:block')
+    finalScoreDisplay.textContent = finalScore;
 }
 
 function displayQuestion(){
@@ -88,9 +101,7 @@ function choiceSubmission(event){
       
       if(parseInt(event.target.id)!==correctResponse){
           console.log('you got the wrong answer')
-          clearTimer();
-          totalTime=totalTime-10;
-          startTimer();
+          timePenalty();
       }else{
         finalScoreCalculator();
       }
@@ -104,8 +115,37 @@ function choiceSubmission(event){
         secondsLeft.textContent=0
         console.log('Quiz over')
         console.log(finalScore)
-        //displayscore
+        endofQuiz();
     }
+}
+
+function onFormSubmit(event){
+    event.preventDefault();
+    var storedScores = JSON.parse(localStorage.getItem("scores"));
+
+    if (storedScores !== null) {
+      scoreArray = storedScores;
+    }
+    
+    var text = userText.value.trim();
+    if (text === "") {
+        return;
+    }
+
+    
+    scoreArray.push({'userName':text,'score':finalScore});
+    userText.value = "";
+
+    setupStorage();
+    pageRedirect();
+}
+
+function pageRedirect(){
+    window.location.href = "../html/scoreboard.html";
+}   
+
+function setupStorage(){
+    localStorage.setItem("scores", JSON.stringify(scoreArray));
 }
 
 //Eventhandling
@@ -114,5 +154,8 @@ startButton.addEventListener('click',function(){
     displayQuestion();
 })
 choices.addEventListener('click',choiceSubmission)
+
+userForm.addEventListener('submit',onFormSubmit)
+
 
 
