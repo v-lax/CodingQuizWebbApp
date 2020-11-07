@@ -4,18 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/solar/bootstrap.min.css">
 </head>
 <body>
-    <section id="leader-board">
-        <ul id="leaders">
+    <table id="leader-board" class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col"></th>
+            <th scope="col">User Name</th>
+            <th scope="col">score</th>
+          </tr>
+        </thead>
+        <tbody id="leaders">
+        </tbody>
+    </table>
 
-        </ul>
-    </section>
-    <section>
-        <button id="start-over">Start Over</button>
-        <button id="clearBoard">Clear the Score Board</button>
-    </section>
+    <div id="noscore-warning" class="alert alert-dismissible alert-warning text-center">
+        <h2 class="mb-0">No one has taken the quiz yet! Click the start again button to get your name on the scoreboard</h2>
+    </div>
 
+    <section class="text-center">
+        <button id="start-over" type="button" class="btn btn-info">Start Over!</button>
+        <button id="clearBoard" type="button" class="btn btn-info">Clear the Score Board!</button>
+    </section>
     <script src="../javascript/scoreboard.js"></script>
 </body>
 </html>

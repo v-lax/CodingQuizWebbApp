@@ -14,6 +14,8 @@ The following is a simple quiz web app. It contains a set of questions that the 
     7. Functional programming
 
 # Link to Deployed project and screenshot.
+![Screenshot](./assets/screenshot.png)
 
+[Link to deployed site](https://v-lax.github.io/CodingQuizWebbApp/)
 
 

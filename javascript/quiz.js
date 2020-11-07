@@ -2,23 +2,23 @@
 //Our question set - stored as an array of objects
 var questionData = [
     {
-        question:"Question1",
-        choices:['1','2','3','4'],
+        question:"How do you search for event listeners in JS?",
+        choices:['.getElementById()','.addEventListener()','.quertSelector()','.setAttribute()'],
         correctAnswerId:1
     },
     {
-        question:'Question2',
-        choices:['5','6','7','8'],
+        question:'What is one way to convert a string to an int in JS?',
+        choices:['turnToInt()','iNowTurnYouIntoAnInt()','parseInt()','None of the above'],
         correctAnswerId:2
     },
     {
-        question:'Question3',
-        choices:['1','2','3','4'],
+        question:'Which of the following loops runs until a specified condition is false',
+        choices:['for loop','for while loop','if then loop','while loop'],
         correctAnswerId:3
     },
     {
-        question:'Question4',
-        choices:['1','2','3','4'],
+        question:'What is another name for javascript?',
+        choices:['ECCMA Script','java','HTML','CSS'],
         correctAnswerId:0
     }
 ];
@@ -126,7 +126,7 @@ function onFormSubmit(event){
     if (storedScores !== null) {
       scoreArray = storedScores;
     }
-    
+
     var text = userText.value.trim();
     if (text === "") {
         return;
